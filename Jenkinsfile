@@ -5,7 +5,7 @@ pipeline {
          
         stage('Build')   {
              steps {
-                 sh 'docker build -t duo-task:v2 .'
+                 sh 'docker build -t duo-task:v1 .'
              }
          }
          
@@ -13,7 +13,7 @@ pipeline {
              steps {
                 sh '''
                 docker network inspect duotask-net && sleep 1 || docker network create duotask-net
-                docker run -d -p 80:5500 --network duotask-net --name duo-task duo-task:v2
+                docker run -d -p 80:5500 --network duotask-net --name duo-task duo-task:v1
                 '''
              }
              
