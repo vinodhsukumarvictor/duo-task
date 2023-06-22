@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  flask-app:
+    image: duo-app:v2
+    build: .
+    deploy:
+      replicas: 3
+    networks:
+      - duo-net
+  ngnix:
+    image: nginx:alpine
+    networks:
+      - duo-net
+    ports:
+      - target: 80
+        published: 0
+    volumes:
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/nginx.conf
+networks:
+  duo-net:
